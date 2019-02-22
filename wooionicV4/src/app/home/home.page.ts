@@ -1,7 +1,6 @@
 import { Component  } from '@angular/core';
 import { NavController } from '@ionic/angular';
-
-import * as wc from 'woocommerce-api' ;
+import * as WC from 'woocommerce-api';
 
 @Component({
   selector: 'app-home',
@@ -9,19 +8,19 @@ import * as wc from 'woocommerce-api' ;
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
- woocomm: any ;
+  Woocommerce: any;
+  products: any[];
  constructor(public nav: NavController) {
-    this.woocomm = wc({
-      url: 'http://wooionicv.test/wp-json/',
-      ConsumerKey: 'ck_5b879165f562fa8ed2c9c9bab6d6aae0209e4579',
-      ConsumerSecret: 'cs_3044f208018523c58b8be94485bcb6ebe8a05e25',
-      wpAPI: true,
-     // version: 'wc/v3'
+    this.Woocommerce = WC({
+      url: 'https://artizone.tn/wp-json/wp/v2/product',
+      ConsumerKey: 'ck_c52c9af62a03a61cab5df7d61e62587688f1cd38',
+      ConsumerSecret: 'cs_5d9da923a3136759b7c1f731a7cf71715678cecc',
     });
-    this.woocomm.getAsyn('products').then((data) => {
-      console.log('nice');
-    } ,  (err) => {
-      console.log('nooooooooooooooooooooooooo') ;
+    this.Woocommerce.getAsyn('products').then((data) => {
+      console.log(JSON.parse(data.body));
+      this.products = JSON.parse(data.body).products;
+    }, (err) => {
+      console.log(err) ;
     });
   }
 }
