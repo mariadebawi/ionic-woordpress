@@ -1,7 +1,6 @@
 import { Component  } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import * as WC from 'woocommerce-api';
-
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -12,12 +11,19 @@ export class HomePage {
   products: any[];
  constructor(public nav: NavController) {
     this.Woocommerce = WC({
-      url: 'https://artizone.tn/' ,
-      consumerKey : 'ck_c52c9af62a03a61cab5df7d61e62587688f1cd38',
-      consumerSecret: 'cs_5d9da923a3136759b7c1f731a7cf71715678cecc',
+      url: 'http://wooionic.test/',
+      consumerKey : 'ck_3989286f3a2df3fd1ec74957cf631a28d64dc349',
+      consumerSecret: 'cs_230fdaa484b79301c46d49b30ba28b34b056892c',
+      wpAPI: true,
+      version: 'wc/v2',
+      queryStringAuth: true
     });
-    this.Woocommerce.get('products', function(err, data, res) {
-      console.log(res);
-    });
+    this.Woocommerce.getAsync('products').then( (data) => {
+      console.log(data);
+      }, (err) => {
+      console.log(err);
+      });
+      }
   }
-}
+
+
