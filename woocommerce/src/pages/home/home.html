@@ -8,16 +8,36 @@
 </ion-header>
 
 <ion-content padding>
-<ion-item *ngFor="let p of products"> 
- {{p.name}}
- <div *ngFor="let i of p.images">
-    <img src="{{i.src}}">
- </div>
-</ion-item>
+  <ion-card>
+    <ion-slides pager autoplay="3000" loop="true">
+      <ion-slide>
+        <img src="../../assets/imgs/accessories-adorable-baby-325867.jpg">
+      </ion-slide>
+      <ion-slide>
+        <img src="../../assets/imgs/accessories-adorable-baby-325867.jpg">
+      </ion-slide>
+      <ion-slide>
+        <img src="../../assets/imgs/accessories-adorable-baby-325867.jpg">
+      </ion-slide>
+      <ion-slide>
+        <img src="../../assets/imgs/accessories-adorable-baby-325867.jpg">
+      </ion-slide>
+      <ion-slide>
+        <img src="../../assets/imgs/accessories-adorable-baby-325867.jpg">
+      </ion-slide>
+    </ion-slides>
+  </ion-card>
 
+  <ion-grid>
+    <ion-row>
+      <ion-slides pager >
+        <ion-slide *ngFor="let p of products">
+         <ion-card no-padding *ngFor="let image of p.images">
+           <img src="{{image.src}}" >
+           <h1>{{p.name}}</h1>
+         </ion-card>
+        </ion-slide>
+      </ion-slides>
+    </ion-row>
+  </ion-grid>
 </ion-content>
-
-
-
-
-
