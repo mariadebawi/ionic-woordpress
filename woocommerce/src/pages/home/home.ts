@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Component  , ViewChild} from '@angular/core';
+import { NavController , Slides  } from 'ionic-angular';
 import * as WC from 'woocommerce-api';
 
 @Component({
@@ -9,7 +9,12 @@ import * as WC from 'woocommerce-api';
 export class HomePage {
   Woocommerce: any;
   products: any[];
+  productsMore: any[];
+  page: number ;
+
+  @ViewChild('productSlides') productSlides : Slides
  constructor(public nav: NavController) {
+   this.page = 2 ;
     this.Woocommerce = WC({
       url: 'https://artizone.tn/',
       consumerKey : 'ck_b0ce7005aa26ef1ccc1e74d69e52e2b602b291f0',
@@ -18,12 +23,33 @@ export class HomePage {
       version: 'wc/v2',
       queryStringAuth: true
     });
+    
     this.Woocommerce.getAsync('products').then( (data) => {
       console.log(JSON.parse(data.body));
       this.products = JSON.parse(data.body);
       }, (err) => {
       console.log(err);
       });
+
+      this.loadMoreProducts() ;
       }
 
-}
+  ionViewDidLoad(){
+    setInterval(() => {
+      if(this.productSlides.getActiveIndex() == this.productSlides.length() -1)
+        this.productSlides.slideTo(0);
+        this.productSlides.slideNext() ;
+    } , 3000 )
+  }
+
+  loadMoreProducts(){
+    this.Woocommerce.getAsync('products?page=' + this.page).then( (data) => {
+      console.log(JSON.parse(data.body));
+      this.productsMore = JSON.parse(data.body);
+      }, (err) => {
+      console.log(err);
+      });
+      }
+  }
+
+
