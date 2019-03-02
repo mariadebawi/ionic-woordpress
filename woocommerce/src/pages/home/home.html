@@ -11,36 +11,40 @@
 
   <ion-grid>
     <ion-row>
-      <ion-slides  #productSlides >
+      <ion-slides #productSlides>
         <ion-slide *ngFor="let p of products">
-         <ion-card no-padding *ngFor="let image of p.images">
-           <img src="{{image.src}}" >
-           <h1 padding center>{{p.name}}</h1>
-           <p padding center>{{p.short_description}}</p>
-         </ion-card>
+          <ion-card no-padding *ngFor="let image of p.images">
+            <img src="{{image.src}}">
+            <h1 padding center>{{p.name}}</h1>
+            <p padding center>{{p.short_description}}</p>
+          </ion-card>
         </ion-slide>
       </ion-slides>
     </ion-row>
   </ion-grid>
- <img  src="../../assets/imgs/adult-beautiful-black-friday-291762.jpg" >
+  <img src="../../assets/imgs/adult-beautiful-black-friday-291762.jpg">
 
-<ion-list>
- <ion-item *ngFor="let p of productsMore">
-   <div *ngFor="let image of p.images">
-    <ion-thumbnail item-left>
-        <img src="{{image.src}}">
-     </ion-thumbnail>
-    </div>
-   <h2>{{p.name}}</h2>
-   <p>
-     <span [innerHtml] = "p.short_description" ></span>
-     <span [innerHtml] = "p.price_html" ></span>
-  </p>
-  <button ion-button icon clear item-right>
-    <ion-icon name="arrow-forward"></ion-icon>
-  </button>
- </ion-item>
-</ion-list>
+  <ion-list>
+    <ion-item *ngFor="let p of productsMore">
+      <div *ngFor="let image of p.images">
+        <ion-thumbnail item-left>
+          <img src="{{image.src}}">
+        </ion-thumbnail>
+      </div>
+      <h2>{{p.name}}</h2>
+      <p>
+        <span [innerHtml]="p.short_description"></span>
+        <span [innerHtml]="p.price_html"></span>
+      </p>
+      <button ion-button icon clear item-right>
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </ion-item>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)=" loadMoreProducts($event)">
+    <ion-infinite-scroll-content>
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 
 
